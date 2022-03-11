@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { List, Card, Empty, Avatar } from 'antd';
 import { PageHeader } from 'antd';
-import { useQuery } from '@apollo/client';
-import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
@@ -23,7 +21,27 @@ function Playlists({ playlistsArr, isLoading, searchText }) {
           pageSize: 16,
         }}
         dataSource={playlistsArr}
-
+        header={
+          isLoading ? (
+            <PageHeader
+              className="site-page-header"
+              title={
+                searchText == 'top 100'
+                  ? 'Would you like to checkout the below playlists?'
+                  : `Searching for: ${searchText}`
+              }
+            />
+          ) : (
+            <PageHeader
+              className="site-page-header"
+              title={
+                searchText == 'top 100'
+                  ? 'Would you like to checkout the below playlists?'
+                  : `Results for: ${searchText}`
+              }
+            />
+          )
+        }
         renderItem={(item) => (
           <Link href={`/playlists/${item.id}`}>
             <Card
@@ -44,7 +62,15 @@ function Playlists({ playlistsArr, isLoading, searchText }) {
                 borderRadius: '4px',
               }}
             >
-              
+              <Meta
+                style={{ paddingBottom: '8px' }}
+                title={item.name}
+                description={`By ${
+                  item.owner_name && item.owner_name.length > 17
+                    ? `${item.owner_name.substr(0, 15)}...`
+                    : item?.owner_name
+                }`}
+              />
             </Card>
           </Link>
         )}
