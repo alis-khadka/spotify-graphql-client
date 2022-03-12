@@ -2,6 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background-color: #d4f1f4;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -13,4 +14,69 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.ant-select-arrow {
+  color: inherit !important;
+}
+
+.ant-card-body {
+  padding: 16px !important;
+}
+
+-nested-loading {
+  height: 70vh;
+  overflow-y: auto;
+  width: 100%;
+  overflow-x: clip;
+}
+
+.playlist-header .ant-page-header-heading-left {
+  align-items: flex-end;
+}
+
+.scrollable-playlists .ant-spin-nested-loading {
+  height: 70vh;
+  overflow-y: auto;
+  width: 100%;
+  overflow-x: clip;
+}
+
+.scrollable-tracks .ant-spin-nested-loading {
+  height: 70vh;
+  overflow-y: auto;
+  width: 100%;
+  overflow-x: clip;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+}
+
+:hover ::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 1px 1px 0px rgb(0 0 0 / 10%),
+    inset 0px -1px 0px rgb(0 0 0 / 7%);
+}
+
+.text-gray {
+  color: grey;
+}
+
+.ant-pagination-options {
+  display: none;
+}
+
+.ant-layout-header {
+  padding: 0;
 }
