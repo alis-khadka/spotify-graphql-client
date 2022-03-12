@@ -34,25 +34,62 @@ export default function Playlist({ id, searchText, searchOption }) {
     tracks = data.queryIndividualPlaylist.tracks;
   }
 
-  const listData = [];
-  for (let i = 0; i < 23; i++) {
-    listData.push({
-      href: 'https://ant.design',
-      title: `ant design part ${i}`,
-      avatar: 'https://joeschmoe.io/api/v1/random',
-      description:
-        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-      content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-    });
-  }
-
-  const IconText = ({ icon, text }) => (
-    <Space>
-      {React.createElement(icon)}
-      {text}
-    </Space>
-  );
+  const columns = [
+    {
+      title: '#',
+      key: 'index',
+      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      render: (value, item, index) => (page - 1) * 10 + (index + 1),
+    },
+    {
+      title: 'Title',
+      dataIndex: 'name',
+      key: 'name',
+      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      render: (name, obj) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img
+            src={obj.image}
+            height={50}
+            width={50}
+            style={{ marginRight: '16px' }}
+          />
+          <div>
+            <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{name}</div>
+            <div className="text-gray">{obj.artist_name}</div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: 'Preview',
+      dataIndex: 'preview_url',
+      key: 'preview_url',
+      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      render: (previewUrl) => (
+        <a href={previewUrl} target="_blank">
+          <Tooltip placement="right" title="Preview in Spotify">
+            <img
+              src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png"
+              height={28}
+            />
+          </Tooltip>
+        </a>
+      ),
+    },
+    {
+      title: 'Album',
+      dataIndex: 'album_name',
+      key: 'album_name',
+      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+    },
+    {
+      title: 'Uploaded at',
+      dataIndex: 'added_at',
+      key: 'added_at',
+      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+    },
+  ];
 
   const titleContent = (
     <div>
@@ -105,57 +142,19 @@ export default function Playlist({ id, searchText, searchOption }) {
           }}
         />
       </Skeleton>
-      <List
-        itemLayout="vertical"
-        size="large"
+      <Table
+        loading={loading}
+        columns={columns}
+        dataSource={tracks}
+        pageSizeOptions={false}
+        rowKey="id"
         pagination={{
-          onChange: (page) => {
-            console.log(page);
+          pageSize: 10,
+          onChange(current) {
+            setPage(current);
           },
-          pageSize: 3,
         }}
-        dataSource={listData}
-        footer={
-          <div>
-            <b>ant design</b> footer part
-          </div>
-        }
-        renderItem={(item) => (
-          <List.Item
-            key={item.title}
-            actions={[
-              <IconText
-                icon={StarOutlined}
-                text="156"
-                key="list-vertical-star-o"
-              />,
-              <IconText
-                icon={LikeOutlined}
-                text="156"
-                key="list-vertical-like-o"
-              />,
-              <IconText
-                icon={MessageOutlined}
-                text="2"
-                key="list-vertical-message"
-              />,
-            ]}
-            extra={
-              <img
-                width={272}
-                alt="logo"
-                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-              />
-            }
-          >
-            <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
-              title={<a href={item.href}>{item.title}</a>}
-              description={item.description}
-            />
-            {item.content}
-          </List.Item>
-        )}
+        scroll={{ y: 400 }}
       />
     </div>
   );
