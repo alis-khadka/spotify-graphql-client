@@ -15,20 +15,36 @@ beforeEach(() => {
   mockRouter.setCurrentUrl('/');
 });
 
+beforeAll(() => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(), // Deprecated
+      removeListener: jest.fn(), // Deprecated
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+});
+
 test('should search for the provided query', async () => {
-  await preloadAll();
-  const { container } = render(<MyApp Component={App} />);
+  await act(async () => {
+    await preloadAll();
+    const { container } = render(<MyApp Component={App} />);
 
-  const searchField = container.querySelector('#search-field');
-  expect(searchField).toBeInTheDocument();
+    const searchField = container.querySelector('#search-field');
+    expect(searchField).toBeInTheDocument();
 
-  searchField.value = 'test query';
-  const searchBtn = container.querySelector('.ant-input-search-button');
-
-  searchBtn.click();
-  await new Promise((r) => setTimeout(r, 4000));
-  
-  expect(
-    container.querySelector('.ant-page-header-heading-title').innerHTML
-  ).toBe('Results for: test query');
+    fireEvent.change(searchField, { target: { value: 'test query' } });
+    const searchBtn = container.querySelector('.ant-input-search-button');
+    fireEvent.click(searchBtn);
+    await new Promise((r) => setTimeout(r, 4000));
+    expect(
+      container.querySelector('.ant-page-header-heading-title').innerHTML
+    ).toBe('Results for: test query');
+  });
 });
