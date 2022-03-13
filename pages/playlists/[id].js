@@ -38,6 +38,7 @@ export default function Playlist({ id, searchText, searchOption }) {
     {
       title: '#',
       key: 'index',
+      width: 60,
       responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       render: (value, item, index) => (page - 1) * 10 + (index + 1),
     },
@@ -65,17 +66,24 @@ export default function Playlist({ id, searchText, searchOption }) {
       title: 'Preview',
       dataIndex: 'preview_url',
       key: 'preview_url',
+      width: 150,
       responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-      render: (previewUrl) => (
-        <a href={previewUrl} target="_blank">
-          <Tooltip placement="right" title="Preview in Spotify">
-            <img
-              src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png"
-              height={28}
-            />
-          </Tooltip>
-        </a>
-      ),
+      render: (previewUrl) => {
+        if (!!previewUrl) {
+          return (
+            <a href={previewUrl} target="_blank">
+              <Tooltip placement="right" title="Preview in Spotify">
+                <img
+                  src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png"
+                  height={28}
+                />
+              </Tooltip>
+            </a>
+          );
+        } else {
+          return 'N/A';
+        }
+      },
     },
     {
       title: 'Album',
