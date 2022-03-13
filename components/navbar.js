@@ -32,8 +32,8 @@ export default ({ setSearchText, setSearchOption }) => {
 
   return (
     <Header>
-      <div class="content-wrapper">
-        <div class="navmenu">
+      <div className="content-wrapper">
+        <div className="navmenu">
           <div id="search-form">
             <Searchbar
               handleDropdownChange={handleDropdownChange}
@@ -51,15 +51,15 @@ export default ({ setSearchText, setSearchOption }) => {
           <nav
             id="navbar"
             style={{ display: burgerClicked ? 'block' : 'none' }}
-            itemprop="mainEntity"
-            itemscope="itemscope"
-            itemtype="https://schema.org/SiteNavigationElement"
+            itemProp="mainEntity"
+            itemScope="itemscope"
+            itemType="https://schema.org/SiteNavigationElement"
           >
-            <ul class="navbar">
+            <ul className="navbar">
               <li>
                 <Link href="/">
                   <a title="Home">
-                    <span itemprop="name">Home</span>
+                    <span itemProp="name">Home</span>
                   </a>
                 </Link>
               </li>
