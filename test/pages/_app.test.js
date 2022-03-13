@@ -48,3 +48,22 @@ test('should search for the provided query', async () => {
     ).toBe('Results for: test query');
   });
 });
+
+test('should navigate to the specific playlist page when clicked on an playlist from the results', async () => {
+  await act(async () => {
+    await preloadAll();
+    const { container } = render(<MyApp Component={App} />);
+
+    await new Promise((r) => setTimeout(r, 4000));
+
+    const playlistCard = container.querySelector(
+      '[rowkey="5ABHKGoOzxkaa28ttQV9sE"]'
+    );
+    fireEvent.click(playlistCard);
+    await new Promise((r) => setTimeout(r, 4000));
+
+    expect(singletonRouter).toMatchObject({
+      asPath: '/playlists/5ABHKGoOzxkaa28ttQV9sE',
+    });
+  });
+});
