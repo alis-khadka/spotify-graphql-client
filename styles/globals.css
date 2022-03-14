@@ -31,6 +31,10 @@ a {
   overflow-x: clip;
 }
 
+.playlist-header {
+  padding-left: 0;
+}
+
 .playlist-header .ant-page-header-heading-left {
   align-items: flex-end;
 }
@@ -40,6 +44,7 @@ a {
   overflow-y: auto;
   width: 100%;
   overflow-x: clip;
+  padding-right: 40px;
 }
 
 .scrollable-tracks .ant-spin-nested-loading {
@@ -79,6 +84,10 @@ a {
 
 .ant-layout-header {
   padding: 0;
+}
+
+.ant-list-item-action > li {
+  margin-right: 25px;
 }
 
 /* Reference from: https://www.codingflicks.com/2021/06/responsive-navbar-with-search-box.html */
@@ -264,10 +273,124 @@ ul.sub-menu > li > a:hover {
   padding: 0 100px !important;
 }
 
-@media (max-width: 914px) {
+@media (max-width: 1199.99px) {
+  .navmenu {
+    padding: 0 55px !important;
+  }
+}
+
+@media (max-width: 999.99px) {
   .navmenu {
     padding: 0 20px !important;
   }
 }
 
 /* Navbar End */
+
+/* Playlist Id page Start */
+
+.track-title-col {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.playlist-cover {
+  width: 250px;
+  height: 250px;
+}
+
+.playlist-title {
+  font-size: 52px;
+  margin: 28px 0;
+}
+
+.tracks-list {
+  display: none;
+}
+
+.playlist-container {
+  padding: 0 150px;
+}
+
+.ant-list-item-action-split {
+  display: none;
+}
+
+@media (max-width: 1585.99px) {
+  .track-title-col {
+    font-size: 14px;
+  }
+
+  .playlist-cover {
+    width: 200px;
+    height: 200px;
+  }
+
+  .playlist-title {
+    font-size: 44px;
+  }
+}
+
+@media (max-width: 1225.99px) {
+  .tracks-table {
+    display: none;
+  }
+
+  .tracks-list {
+    display: block;
+  }
+}
+
+@media (max-width: 1078.99px) {
+  .playlist-cover {
+    width: 150px;
+    height: 150px;
+  }
+
+  .playlist-title {
+    font-size: 30px;
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 897.99px) {
+  .playlist-container {
+    padding: 0 25px;
+  }
+}
+
+@media (max-width: 659.99px) {
+  .playlist-cover {
+    width: 120px;
+    height: 120px;
+  }
+
+  .playlist-title {
+    font-size: 25px;
+    margin: 5px 0;
+  }
+
+  .ant-list-item-action > li {
+    margin-right: 0;
+  }
+
+  .ant-list-item-action > li:first-child {
+    margin-right: 10px;
+  }
+}
+
+.spotify-link-icon-only {
+  display: none;
+}
+
+@media (max-width: 599.99px) {
+  .spotify-link-full {
+    display: none;
+  }
+
+  .spotify-link-icon-only {
+    display: block;
+  }
+}
+
+/* Playlist Id page End */
