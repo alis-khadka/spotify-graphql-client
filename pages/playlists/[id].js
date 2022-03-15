@@ -78,7 +78,7 @@ export default function Playlist({ id, searchText, searchOption }) {
       render: (previewUrl) => {
         if (!!previewUrl) {
           return (
-            <a href={previewUrl} target="_blank" rel="noopener">
+            <a href={previewUrl} target="_blank" rel="noreferrer">
               <Tooltip placement="right" title="Preview in Spotify">
                 <img
                   src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png"
@@ -128,7 +128,7 @@ export default function Playlist({ id, searchText, searchOption }) {
           className="spotify-link-full"
           href={playlist?.spotify_url}
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
         >
           <Button
             style={{
@@ -157,7 +157,7 @@ export default function Playlist({ id, searchText, searchOption }) {
           className="spotify-link-icon-only"
           href={playlist?.spotify_url}
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
         >
           <Tooltip placement="right" title="Open In Spotify">
             <Button
@@ -275,7 +275,7 @@ const previewAndUploadedDetails = (track) => {
   );
   if (!!track.preview_url) {
     preview = (
-      <a href={track.preview_url} target="_blank" rel="noopener">
+      <a href={track.preview_url} target="_blank" rel="noreferrer">
         <Tooltip placement="right" title="Preview in Spotify">
           <img
             src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png"
