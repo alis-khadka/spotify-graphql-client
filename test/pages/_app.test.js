@@ -39,13 +39,13 @@ test('should search for the provided query', async () => {
     const searchField = container.querySelector('#search-field');
     expect(searchField).toBeInTheDocument();
 
-    fireEvent.change(searchField, { target: { value: 'test query' } });
+    fireEvent.change(searchField, { target: { value: 'best songs' } });
     const searchBtn = container.querySelector('.ant-input-search-button');
     fireEvent.click(searchBtn);
     await new Promise((r) => setTimeout(r, 4000));
     expect(
       container.querySelector('.ant-page-header-heading-title').innerHTML
-    ).toBe('Results for: test query');
+    ).toBe('Results for: best songs');
   });
 });
 
