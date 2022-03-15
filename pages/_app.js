@@ -14,10 +14,10 @@ import {
   HttpLink,
 } from '@apollo/client';
 
-const GRAPHQL_SERVER = process.env.NEXT_PUBLIC_GRAPHQL_SERVER || 'http://localhost:4000';
+const GRAPHQL_SERVER = process.env.NEXT_PUBLIC_GRAPHQL_SERVER || 'http://localhost:4000/graphql';
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: `${GRAPHQL_SERVER}/graphql`, fetch }),
+  link: new HttpLink({ uri: GRAPHQL_SERVER, fetch }),
   cache: new InMemoryCache(),
 });
 
