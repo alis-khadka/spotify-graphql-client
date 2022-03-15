@@ -24,4 +24,5 @@ Open [http://localhost:4200](http://localhost:4200) with your browser to see the
 npm test
 ```
 
-
+### Note: Make sure the graphql server is running.
+I tried using mocks but it was taking more time to get it right.
