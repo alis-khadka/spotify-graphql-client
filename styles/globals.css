@@ -88,6 +88,17 @@ a {
 
 .ant-list-item-action > li {
   margin-right: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center
+}
+
+.ant-list-item-action > li:first-child {
+  width: 30px;
+}
+
+.ant-list-item-action > li:last-child {
+  width: 130px;
 }
 
 /* Reference from: https://www.codingflicks.com/2021/06/responsive-navbar-with-search-box.html */
@@ -97,6 +108,7 @@ a {
   width: 100%;
   background: #303030;
   display: inline-block;
+  z-index: 20;
 }
 
 #menu {
@@ -300,8 +312,11 @@ ul.sub-menu > li > a:hover {
 }
 
 .playlist-title {
-  font-size: 52px;
-  margin: 28px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 48px;
+  padding: 28px 0;
 }
 
 .tracks-list {
@@ -349,7 +364,7 @@ ul.sub-menu > li > a:hover {
 
   .playlist-title {
     font-size: 30px;
-    margin: 10px 0;
+    padding: 10px 0;
   }
 }
 
@@ -367,7 +382,7 @@ ul.sub-menu > li > a:hover {
 
   .playlist-title {
     font-size: 25px;
-    margin: 5px 0;
+    padding: 5px 0;
   }
 
   .ant-list-item-action > li {

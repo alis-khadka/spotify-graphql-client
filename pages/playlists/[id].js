@@ -115,6 +115,7 @@ export default function Playlist({ id, searchText, searchOption }) {
       <Tag color="blue">Playlist</Tag>
 
       <div className="playlist-title">{playlist?.name}</div>
+
       <div style={{ fontSize: '14px', display: 'flex', alignItems: 'center' }}>
         <FontAwesomeIcon
           icon={faMusic}
