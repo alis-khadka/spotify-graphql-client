@@ -9,7 +9,7 @@ const { Header } = Layout;
 
 const LANDING_PAGE = '/';
 
-export default ({ setSearchText, setSearchOption }) => {
+export default function Navbar({ setSearchText, setSearchOption }) {
   const router = useRouter();
 
   const [burgerClicked, setBurgerClicked] = useState(false);

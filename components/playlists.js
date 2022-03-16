@@ -15,10 +15,10 @@ function Playlists({ playlistsArr, isLoading, searchText }) {
     return (
       <List
         className="scrollable-playlists"
-        grid={{ xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 8 }}
+        grid={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 7 }}
         style={{ marginLeft: '30px' }}
         pagination={{
-          pageSize: 16,
+          pageSize: 14,
         }}
         dataSource={playlistsArr}
         header={
