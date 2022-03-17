@@ -12,11 +12,8 @@ import {
   Avatar,
   Tag,
   Table,
-  Row,
   Tooltip,
-  Col,
   Button,
-  Image,
   Typography,
 } from 'antd';
 
@@ -164,7 +161,7 @@ export default function Playlist({ id, searchText, searchOption }) {
               style={{
                 marginLeft: '80px',
                 padding: '3px',
-                borderRadius: '50px',
+                borderRadius: '50%',
                 height: '50px',
                 width: '50px',
               }}
@@ -240,18 +237,19 @@ export default function Playlist({ id, searchText, searchOption }) {
                     actions={previewAndUploadedDetails(item)}
                   >
                     <List.Item.Meta
-                      avatar={
-                        <Avatar src={item.image} shape="square" size={50} />
-                      }
+                      avatar={<Avatar src={item.image} shape="square" />}
                       title={
-                        <Text ellipsis={true} style={{ maxWidth: '180px' }}>
+                        <Text className="tracks-text" ellipsis={true}>
                           {item.name}
                         </Text>
                       }
                       description={
-                        item.artist_name?.length
-                          ? `By ${item.artist_name}`
-                          : null
+                        item.artist_name?.length ? (
+                          <Text
+                            className="tracks-text"
+                            ellipsis={true}
+                          >{`By ${item.artist_name}`}</Text>
+                        ) : null
                       }
                     />
                   </List.Item>
@@ -269,9 +267,22 @@ export default function Playlist({ id, searchText, searchOption }) {
 const previewAndUploadedDetails = (track) => {
   let preview;
   const uploadedAt = (
-    <Tooltip placement="right" title="Uploaded at">
-      {track.added_at}
-    </Tooltip>
+    <>
+      <Tooltip
+        className="track-uploaded-at-long"
+        placement="right"
+        title="Uploaded at"
+      >
+        {track.added_at}
+      </Tooltip>
+      <Tooltip
+        className="track-uploaded-at-short"
+        placement="right"
+        title="Uploaded at"
+      >
+        {new Date(track.added_at).toLocaleDateString()}
+      </Tooltip>
+    </>
   );
   if (!!track.preview_url) {
     preview = (

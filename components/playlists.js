@@ -1,16 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
-import { List, Card, Empty, Avatar } from 'antd';
+import { List, Card, Empty, Skeleton } from 'antd';
 import { PageHeader } from 'antd';
 
 const { Meta } = Card;
+const invalidResponse = [
+  { id: 1, title: 'No results found for the provided query.' },
+  { id: 2, title: 'Please check your query & try again.' },
+];
 
 function Playlists({ playlistsArr, isLoading, searchText }) {
-  const invalidResponse = [
-    { id: 1, title: 'Ne results found for the provided query.' },
-    { id: 2, title: 'Please check your query & try again.' },
-  ];
-
   if (playlistsArr.length) {
     return (
       <List
@@ -42,18 +41,27 @@ function Playlists({ playlistsArr, isLoading, searchText }) {
             />
           )
         }
-        renderItem={(item) => (
+        renderItem={(item, index) => (
           <Link href={`/playlists/${item.id}`}>
             <Card
               rowkey={item.id}
               hoverable={true}
               loading={isLoading}
               cover={
-                <img
-                  alt="Playlist cover picture"
-                  src={item.image}
-                  style={{ padding: '16px', width: '180px', height: '180px' }}
-                />
+                isLoading ? (
+                  <Skeleton.Image />
+                ) : (
+                  <img
+                    alt="Playlist cover picture"
+                    src={item.image}
+                    style={{
+                      padding: '16px',
+                      height: '200px',
+                      borderRadius: '12%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                )
               }
               style={{
                 width: '212px',

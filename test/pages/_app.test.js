@@ -42,7 +42,8 @@ test('should search for the provided query', async () => {
     fireEvent.change(searchField, { target: { value: 'best songs' } });
     const searchBtn = container.querySelector('.ant-input-search-button');
     fireEvent.click(searchBtn);
-    await new Promise((r) => setTimeout(r, 4000));
+    await new Promise((r) => setTimeout(r, 5000));
+
     expect(
       container.querySelector('.ant-page-header-heading-title').innerHTML
     ).toBe('Results for: best songs');
