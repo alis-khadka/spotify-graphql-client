@@ -26,3 +26,7 @@ npm test
 
 ### Note: Make sure the graphql server is running.
 I tried using mocks but it was taking more time to get it right.
+
+## Live Demo
+
+[Demo](https://spotify-graphql-client.vercel.app/)
