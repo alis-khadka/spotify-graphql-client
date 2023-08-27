@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
+import { query } from '../../lib/spotify';
+import { excludeKeys } from '../../lib/utilities';
+import { faMusic } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   List,
   PageHeader,
@@ -7,16 +12,12 @@ import {
   Avatar,
   Tag,
   Table,
-  Row,
   Tooltip,
-  Col,
   Button,
-  Image,
+  Typography,
 } from 'antd';
-import { faMusic } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { query } from '../../lib/spotify';
-import { excludeKeys } from '../../lib/utilities';
+
+const { Title, Text } = Typography;
 
 export default function Playlist({ id, searchText, searchOption }) {
   const { loading, error, data } = useQuery(query.GET_PLAYLIST_WITH_TRACKS, {
@@ -26,7 +27,7 @@ export default function Playlist({ id, searchText, searchOption }) {
   const [page, setPage] = useState(1);
 
   let playlist = {};
-  let tracks = [];
+  let tracks = Array(10).fill({});
 
   if (error) return <h2>{`Error! ${error}`}</h2>;
   if (data) {
@@ -39,14 +40,12 @@ export default function Playlist({ id, searchText, searchOption }) {
       title: '#',
       key: 'index',
       width: 60,
-      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       render: (value, item, index) => (page - 1) * 10 + (index + 1),
     },
     {
       title: 'Title',
       dataIndex: 'name',
       key: 'name',
-      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       render: (name, obj) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img
@@ -56,8 +55,14 @@ export default function Playlist({ id, searchText, searchOption }) {
             style={{ marginRight: '16px' }}
           />
           <div>
-            <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{name}</div>
-            <div className="text-gray">{obj.artist_name}</div>
+            <div className="track-title-col">{name}</div>
+            <Text
+              className="text-gray"
+              style={{ maxWidth: '150px' }}
+              ellipsis={true}
+            >
+              {obj.artist_name}
+            </Text>
           </div>
         </div>
       ),
@@ -67,11 +72,10 @@ export default function Playlist({ id, searchText, searchOption }) {
       dataIndex: 'preview_url',
       key: 'preview_url',
       width: 150,
-      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
       render: (previewUrl) => {
         if (!!previewUrl) {
           return (
-            <a href={previewUrl} target="_blank">
+            <a href={previewUrl} target="_blank" rel="noreferrer">
               <Tooltip placement="right" title="Preview in Spotify">
                 <img
                   src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png"
@@ -81,7 +85,13 @@ export default function Playlist({ id, searchText, searchOption }) {
             </a>
           );
         } else {
-          return 'N/A';
+          return (
+            <Tooltip placement="right" title="Preview not available">
+              <Tag color="orange" style={{ cursor: 'not-allowed' }}>
+                N/A
+              </Tag>
+            </Tooltip>
+          );
         }
       },
     },
@@ -89,13 +99,11 @@ export default function Playlist({ id, searchText, searchOption }) {
       title: 'Album',
       dataIndex: 'album_name',
       key: 'album_name',
-      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
     },
     {
       title: 'Uploaded at',
       dataIndex: 'added_at',
       key: 'added_at',
-      responsive: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
     },
   ];
 
@@ -103,7 +111,8 @@ export default function Playlist({ id, searchText, searchOption }) {
     <div>
       <Tag color="blue">Playlist</Tag>
 
-      <div style={{ fontSize: '52px', margin: '28px 0' }}>{playlist?.name}</div>
+      <div className="playlist-title">{playlist?.name}</div>
+
       <div style={{ fontSize: '14px', display: 'flex', alignItems: 'center' }}>
         <FontAwesomeIcon
           icon={faMusic}
@@ -112,7 +121,12 @@ export default function Playlist({ id, searchText, searchOption }) {
         <span className="text-gray">Total tracks:&nbsp;</span>
         {tracks?.length}
 
-        <a href={playlist?.spotify_url} target="_blank">
+        <a
+          className="spotify-link-full"
+          href={playlist?.spotify_url}
+          target="_blank"
+          rel="noreferrer"
+        >
           <Button
             style={{
               marginLeft: '60px',
@@ -128,29 +142,59 @@ export default function Playlist({ id, searchText, searchOption }) {
               />
             }
           >
-            <span style={{ fontSize: '14px', fontWeight: 'bold' }}>
+            <span
+              className="spotify-link"
+              style={{ fontSize: '14px', fontWeight: 'bold' }}
+            >
               &nbsp;Open In Spotify
             </span>
           </Button>
+        </a>
+        <a
+          className="spotify-link-icon-only"
+          href={playlist?.spotify_url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Tooltip placement="right" title="Open In Spotify">
+            <Button
+              style={{
+                marginLeft: '80px',
+                padding: '3px',
+                borderRadius: '50%',
+                height: '50px',
+                width: '50px',
+              }}
+              icon={
+                <img
+                  src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png"
+                  height={30}
+                />
+              }
+            />
+          </Tooltip>
         </a>
       </div>
     </div>
   );
 
   return (
-    <div style={{ padding: '0 150px' }}>
+    <div className="playlist-container">
       <Skeleton active={true} loading={loading}>
         <PageHeader
           title={titleContent}
           className="site-page-header playlist-header"
           avatar={{
             src: playlist?.image,
-            size: 250,
             shape: 'square',
+            className: 'playlist-cover',
           }}
         />
       </Skeleton>
+
+      {/* Large screen table view: Start */}
       <Table
+        className="tracks-table"
         loading={loading}
         columns={columns}
         dataSource={tracks}
@@ -164,9 +208,105 @@ export default function Playlist({ id, searchText, searchOption }) {
         }}
         scroll={{ y: 400 }}
       />
+      {/* Large screen table view: End */}
+
+      {/* Small-Medium screen table view: Start */}
+      <div className="tracks-list">
+        <Title level={3} style={{ marginTop: '20px' }}>
+          Tracks
+        </Title>
+        <div
+          style={{
+            height: '60vh',
+            overflow: 'auto',
+            padding: '0 0 0 16px',
+            backgroundColor: 'azure',
+            borderRadius: '10px',
+          }}
+        >
+          <InfiniteScroll
+            dataLength={tracks.length}
+            scrollableTarget="scrollableDiv"
+          >
+            <List
+              dataSource={tracks}
+              renderItem={(item) => (
+                <Skeleton avatar title={false} loading={loading} active>
+                  <List.Item
+                    key={item.id}
+                    actions={previewAndUploadedDetails(item)}
+                  >
+                    <List.Item.Meta
+                      avatar={<Avatar src={item.image} shape="square" />}
+                      title={
+                        <Text className="tracks-text" ellipsis={true}>
+                          {item.name}
+                        </Text>
+                      }
+                      description={
+                        item.artist_name?.length ? (
+                          <Text
+                            className="tracks-text"
+                            ellipsis={true}
+                          >{`By ${item.artist_name}`}</Text>
+                        ) : null
+                      }
+                    />
+                  </List.Item>
+                </Skeleton>
+              )}
+            />
+          </InfiniteScroll>
+        </div>
+      </div>
+      {/* Small-Medium screen table view: End */}
     </div>
   );
 }
+
+const previewAndUploadedDetails = (track) => {
+  let preview;
+  const uploadedAt = (
+    <>
+      <Tooltip
+        className="track-uploaded-at-long"
+        placement="right"
+        title="Uploaded at"
+      >
+        {track.added_at}
+      </Tooltip>
+      <Tooltip
+        className="track-uploaded-at-short"
+        placement="right"
+        title="Uploaded at"
+      >
+        {new Date(track.added_at).toLocaleDateString()}
+      </Tooltip>
+    </>
+  );
+  if (!!track.preview_url) {
+    preview = (
+      <a href={track.preview_url} target="_blank" rel="noreferrer">
+        <Tooltip placement="right" title="Preview in Spotify">
+          <img
+            src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png"
+            height={28}
+          />
+        </Tooltip>
+      </a>
+    );
+  } else {
+    preview = (
+      <Tooltip placement="right" title="Preview not available">
+        <Tag color="orange" style={{ cursor: 'not-allowed' }}>
+          N/A
+        </Tag>
+      </Tooltip>
+    );
+  }
+
+  return [preview, uploadedAt];
+};
 
 export async function getServerSideProps({ params }) {
   return {
