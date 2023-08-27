@@ -9,7 +9,7 @@ const { Header } = Layout;
 
 const LANDING_PAGE = '/';
 
-export default ({ setSearchText, setSearchOption }) => {
+export default function Navbar({ setSearchText, setSearchOption }) {
   const router = useRouter();
 
   const [burgerClicked, setBurgerClicked] = useState(false);
@@ -34,7 +34,14 @@ export default ({ setSearchText, setSearchOption }) => {
     <Header>
       <div className="content-wrapper">
         <div className="navmenu">
-          <div id="search-form">
+          <div
+            id="search-form"
+            style={{
+              height: '100%',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}
+          >
             <Searchbar
               handleDropdownChange={handleDropdownChange}
               handleSearchChange={handleSearchChange}
@@ -57,11 +64,17 @@ export default ({ setSearchText, setSearchOption }) => {
           >
             <ul className="navbar">
               <li>
-                <Link href="/">
-                  <a title="Home">
-                    <span itemProp="name">Home</span>
-                  </a>
-                </Link>
+                <div
+                  onClick={() => {
+                    setBurgerClicked(!burgerClicked);
+                  }}
+                >
+                  <Link href="/">
+                    <a title="Home">
+                      <span itemProp="name">Home</span>
+                    </a>
+                  </Link>
+                </div>
               </li>
             </ul>
           </nav>
@@ -70,4 +83,4 @@ export default ({ setSearchText, setSearchOption }) => {
       <div style={{ clear: 'both' }} />
     </Header>
   );
-};
+}

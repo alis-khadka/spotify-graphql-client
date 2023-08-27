@@ -4,7 +4,7 @@ import { Select, Input } from 'antd';
 const { Option } = Select;
 const { Search } = Input;
 
-export default ({ handleDropdownChange, handleSearchChange }) => {
+export default function Searchbar({ handleDropdownChange, handleSearchChange }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Select
