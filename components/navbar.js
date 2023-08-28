@@ -68,10 +68,8 @@ export default function Navbar({ setSearchText, setSearchOption }) {
                     setBurgerClicked(!burgerClicked);
                   }}
                 >
-                  <Link href="/">
-                    <a title="Home">
-                      <span itemProp="name">Home</span>
-                    </a>
+                  <Link href="/" title='Home'>
+                    <span itemProp="name">Home</span>
                   </Link>
                 </div>
               </li>
