@@ -20,7 +20,6 @@
     "jest-next-dynamic": "^1.0.1",
     "next": "^13.4.19",
     "next-router-mock": "^0.9.9",
-    "node": "^18.17.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-infinite-scroll-component": "^6.1.0"
@@ -40,8 +39,5 @@
   },
   "jest": {
     "testEnvironment": "jsdom"
-  },
-  "engines" : {
-    "node" : ">=16.0.0 <17.0.0"
   }
 }
