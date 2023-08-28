@@ -3,7 +3,6 @@ import { Layout, Menu, Row, Col } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Searchbar from './searchbar';
-import { SearchOutlined } from '@ant-design/icons';
 
 const { Header } = Layout;
 
